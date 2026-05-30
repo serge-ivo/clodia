@@ -14,6 +14,17 @@ export interface Agent {
 	messageCount: number;
 }
 
+export function normalizeAgentName(name: string, fallback: string): string {
+	const normalized = name
+		.trim()
+		.toLowerCase()
+		.replace(/[^a-z0-9_-]+/g, "-")
+		.replace(/^-+|-+$/g, "")
+		.slice(0, 32);
+
+	return normalized || fallback;
+}
+
 /** Detect Claude Code's state from pane output. */
 export function detectStatus(output: string): AgentStatus {
 	if (!output || output.length < 5) return "starting";

@@ -12,8 +12,9 @@ import {
 	denyAction,
 	destroyAgent,
 	getRecentOutput,
+	normalizeAgentName,
 } from "./agent.js";
-import { createSession, sessionExists, killSession, selectWindow } from "./tmux.js";
+import { createSession, sessionExists, selectWindow } from "./tmux.js";
 
 interface LogEntry {
 	time: string;
@@ -109,7 +110,7 @@ export function ClodiaApp({ cwd }: { cwd: string }) {
 			}
 			if (key.return) {
 				if (inputStep === "name") {
-					const name = inputBuf.trim() || `agent-${agents.length}`;
+					const name = uniqueAgentName(normalizeAgentName(inputBuf, `agent-${agents.length}`), agents);
 					setNewAgentName(name);
 					setInputBuf("");
 					setInputStep("task");
@@ -333,6 +334,16 @@ export function ClodiaApp({ cwd }: { cwd: string }) {
 			</Box>
 		</Box>
 	);
+}
+
+function uniqueAgentName(name: string, agents: Agent[]): string {
+	const existing = new Set(agents.filter((agent) => agent.status !== "dead").map((agent) => agent.name));
+	if (!existing.has(name)) return name;
+
+	for (let i = 1; ; i++) {
+		const candidate = `${name}-${i}`;
+		if (!existing.has(candidate)) return candidate;
+	}
 }
 
 function Header({ agentCount }: { agentCount: number }) {

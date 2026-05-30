@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { render } from "ink";
 import { tmuxAvailable, createSession } from "./tmux.js";
 import { ClodiaApp } from "./app.js";
+import packageJson from "../package.json" with { type: "json" };
 
 const args = process.argv.slice(2);
 
@@ -40,7 +41,7 @@ if (args.includes("-h") || args.includes("--help")) {
 }
 
 if (args.includes("-v") || args.includes("--version")) {
-	console.log("0.1.0");
+	console.log(packageJson.version);
 	process.exit(0);
 }
 
