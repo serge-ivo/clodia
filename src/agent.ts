@@ -3,11 +3,13 @@
 import { createAgentPane, readPane, sendKeys, killWindow } from "./tmux.js";
 
 export type AgentStatus = "starting" | "busy" | "idle" | "permission" | "error" | "done" | "dead";
+export type AgentKind = "claude" | "terminal";
 
 export interface Agent {
 	name: string;
 	task: string;
 	cwd: string;
+	kind: AgentKind;
 	status: AgentStatus;
 	lastOutput: string;
 	startedAt: number;
@@ -60,6 +62,20 @@ export function spawnAgent(name: string, cwd: string, task: string): Agent {
 		name,
 		task,
 		cwd,
+		kind: "claude",
+		status: "starting",
+		lastOutput: "",
+		startedAt: Date.now(),
+		messageCount: 0,
+	};
+}
+
+export function importTerminal(name: string, cwd: string): Agent {
+	return {
+		name,
+		task: "External terminal session",
+		cwd,
+		kind: "terminal",
 		status: "starting",
 		lastOutput: "",
 		startedAt: Date.now(),

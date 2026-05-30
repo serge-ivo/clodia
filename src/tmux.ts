@@ -58,9 +58,9 @@ export function readPane(pane: string): string {
 
 export function listWindows(): { index: number; name: string; active: boolean }[] {
 	try {
-		const out = tmux("list-windows", "-t", SESSION, "-F", "#{window_index}:#{window_name}:#{window_active}").trim();
+		const out = tmux("list-windows", "-t", SESSION, "-F", "#{window_index}\t#{window_name}\t#{window_active}").trim();
 		return out.split("\n").filter(Boolean).map((line) => {
-			const [idx, name, active] = line.split(":");
+			const [idx, name, active] = line.split("\t");
 			return { index: parseInt(idx, 10), name: name || "", active: active === "1" };
 		});
 	} catch {

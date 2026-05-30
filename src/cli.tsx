@@ -11,27 +11,28 @@ const args = process.argv.slice(2);
 
 if (args.includes("-h") || args.includes("--help")) {
 	console.log(`
-  \x1b[35m\x1b[1mclodia\x1b[0m — multi-agent Claude Code supervisor
+  \x1b[35m\x1b[1mclodia\x1b[0m — high-level terminal orchestrator
 
   \x1b[1mUsage:\x1b[0m  clodia [path]
 
-  Spawns a tmux session and lets you manage multiple Claude Code
-  agents from a single dashboard. Each agent runs in its own tmux
-  window — you can view output, approve permissions, kill agents,
-  and attach directly.
+  Supervises a tmux workspace and explains what each terminal session
+  is doing in simple words. Clodia can spawn Claude Code agents, track
+  existing tmux windows, flag sessions that need attention, and send
+  the right reply back into the selected terminal.
 
   \x1b[1mRequirements:\x1b[0m
     - tmux (brew install tmux)
     - claude (Claude Code CLI)
 
   \x1b[1mKeys:\x1b[0m
-    n        Spawn new agent (name + task)
-    v        View selected agent's output
-    a        Attach to agent's tmux window
+    n        Spawn new Claude Code agent
+    r        Reply to the selected terminal session
+    v        View selected session output
+    a        Attach to selected tmux window
     y/d      Approve/deny permission prompts
-    k        Kill selected agent
-    ↑/↓      Navigate agent list
-    q        Quit (agents keep running in tmux)
+    k        Kill selected session
+    ↑/↓      Navigate sessions
+    q        Quit (sessions keep running in tmux)
 
   \x1b[1mExamples:\x1b[0m
     clodia              # manage agents in current directory

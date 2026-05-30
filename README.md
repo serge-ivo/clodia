@@ -1,6 +1,8 @@
 # clodia
 
-Multi-agent Claude Code supervisor. Clodia orchestrates multiple Claude Code sessions through tmux, with a terminal dashboard for spawning agents, viewing output, approving permission prompts, attaching to tmux windows, and killing agents.
+High-level terminal orchestrator. Clodia supervises a tmux workspace, explains what each terminal session is doing in simple words, flags what needs attention, and routes your reply back into the right session.
+
+It can spawn Claude Code agents, but it also tracks plain terminal windows inside the Clodia tmux session.
 
 ## Requirements
 
@@ -37,16 +39,17 @@ npx github:serge-ivo/clodia
 ## Keyboard Shortcuts
 
 ```text
-n        Spawn new agent
-v        View selected agent output
-a        Attach to selected agent tmux window
+n        Spawn new Claude Code agent
+r        Reply to selected terminal session
+v        View selected session output
+a        Attach to selected tmux window
 y/d      Approve or deny permission prompts
-k        Kill selected agent
-up/down  Navigate agent list
+k        Kill selected session
+up/down  Navigate session list
 q        Quit dashboard
 ```
 
-Agents keep running in tmux after the dashboard exits.
+Sessions keep running in tmux after the dashboard exits.
 
 ## Development
 
