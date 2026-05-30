@@ -40,8 +40,8 @@ export function createAgentPane(name: string, cwd: string): void {
 }
 
 export function sendKeys(pane: string, text: string): void {
-	// Use send-keys with literal flag to avoid key interpretation issues
-	tmux("send-keys", "-t", target(pane), text, "Enter");
+	tmux("send-keys", "-t", target(pane), "-l", text);
+	tmux("send-keys", "-t", target(pane), "Enter");
 }
 
 export function sendRaw(pane: string, keys: string): void {

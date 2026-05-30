@@ -40,15 +40,15 @@ export function detectStatus(output: string): AgentStatus {
 	// Error states
 	if (/Error:|FATAL|panic|Traceback/i.test(last20)) return "error";
 
-	// Idle — Claude is waiting for input (prompt character visible)
-	// Claude Code shows ">" or "❯" or the user prompt when idle
-	const lastLine = lines.filter((l) => l.trim().length > 0).pop() || "";
-	if (/^[>❯\$]\s*$/.test(lastLine.trim())) return "idle";
-
 	// Check for common "done" indicators
 	if (/completed|finished|done|All \d+ tests passed/i.test(last20)) {
 		if (/^[>❯\$]\s*$/m.test(last20)) return "done";
 	}
+
+	// Idle — Claude is waiting for input (prompt character visible)
+	// Claude Code shows ">" or "❯" or the user prompt when idle
+	const lastLine = lines.filter((l) => l.trim().length > 0).pop() || "";
+	if (/^[>❯\$]\s*$/.test(lastLine.trim())) return "idle";
 
 	return "busy";
 }
