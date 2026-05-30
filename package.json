@@ -1,0 +1,33 @@
+{
+	"name": "clodia",
+	"version": "0.1.0",
+	"description": "Multi-agent Claude Code supervisor. Orchestrate multiple Claude sessions via tmux with quality gates.",
+	"type": "module",
+	"bin": {
+		"clodia": "./dist/cli.js"
+	},
+	"files": ["dist"],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch"
+	},
+	"keywords": ["claude", "ai", "agent", "tmux", "supervisor", "orchestrator", "quality"],
+	"author": "serge-ivo",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/serge-ivo/clodia"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"dependencies": {
+		"ink": "^5.2.1",
+		"react": "^18.3.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.0.0",
+		"@types/react": "^18.3.0",
+		"typescript": "^5.8.0"
+	}
+}
